@@ -1,0 +1,179 @@
+/*1. Create tables for the above list given*/
+-----------------------------------
+create database sample_db;
+/*mentor table*/
+create table mentor(mentor_id integer auto_increment primary key,mentor_name varchar(100),contact_num integer,email varchar(40));
+/*student table*/
+create table students(user_id integer auto_increment primary key,student_name varchar(100),contact_num integer,email varchar(40),
+mentor_id integer,foreign key(mentor_id) references mentor(mentor_id) ); 
+/*course table*/
+create table courses(course_id integer auto_increment primary key,course_name varchar(100),user_id integer,
+foreign key(user_id) references students(user_id));
+/*codekata table*/
+create table codekata(codekata_id integer auto_increment primary key,total_pbm integer,pbm_solved integer,
+user_id integer,foreign key(user_id) references students(user_id),
+course_id integer,foreign key(course_id) references courses(course_id));
+/*attendance*/
+create table attendance(attendanceid INTEGER AUTO_INCREMENT PRIMARY KEY,user_id integer,mentor_id integer,course_id integer,attended Boolean,
+foreign key(user_id) references students(user_id),
+foreign key(mentor_id) references mentor(mentor_id),
+foreign key(course_id) references courses(course_id));
+/*company_drives*/
+create table company_drives(drive_id integer AUTO_INCREMENT PRIMARY KEY,user_id integer,company_name varchar(50),
+foreign key(user_id) references students(user_id));
+/*students_activated_course*/
+create table students_activated_course(id integer AUTO_INCREMENT PRIMARY KEY,user_id integer,course_id integer,
+foreign key(user_id) references students(user_id),
+foreign key(course_id) references courses(course_id));
+/*task*/
+create table task(task_id integer AUTO_INCREMENT PRIMARY KEY,course_id integer,task varchar(200),
+foreign key(course_id) references courses(course_id));
+/*topics table*/
+create table topics(topic_id intege AUTO_INCREMENT PRIMARY KEY,course_id integer,topic varchar(100),
+foreign key(course_id) references courses(course_id));
+
+/*2. insert at least 5 rows of values in each table*/
+
+/*mentor  table insertion*/
+
+insert into mentor(mentor_name,contact_num,email) values("rahul",4568787,"rahul@gmail.com");
+insert into mentor(mentor_name,contact_num,email) values("raj",4568787,"raj@gmail.com");
+insert into mentor(mentor_name,contact_num,email) values("yazhi",4568787,"yazhi@gmail.com");
+insert into mentor(mentor_name,contact_num,email) values("dharshan",4568787,"dharshan@gmail.com");
+insert into mentor(mentor_name,contact_num,email) values("viji",4568787,"vj@gmail.com");
+
+update mentor set contact_num=4568788 where mentor_id=2;
+update mentor set contact_num=4568789 where mentor_id=3;
+update mentor set contact_num=4568790 where mentor_id=4;
+update mentor set contact_num=4568791 where mentor_id=5;
+
+select * from mentor;
+
+/* students table insertion*/
+insert into students(student_name,contact_num,email,mentor_id) values("tamil",34576878,"tamil@gmail.com",2);
+insert into students(student_name,contact_num,email,mentor_id) values("sekar",34547878,"sekar@gmail.com",5);
+insert into students(student_name,contact_num,email,mentor_id) values("banu",345768098,"banu@gmail.com",1);
+insert into students(student_name,contact_num,email,mentor_id) values("priya",34576853,"priya@gmail.com",2);
+insert into students(student_name,contact_num,email,mentor_id) values("saranya",34578478,"saranya@gmail.com",4);
+insert into students(student_name,contact_num,email,mentor_id) values("tiluk",345742553,"tiluk@gmail.com",3);
+insert into students(student_name,contact_num,email,mentor_id) values("kumar",577576853,"kumar@gmail.com",1);
+insert into students(student_name,contact_num,email,mentor_id) values("divyesh",340865853,"divyesh@gmail.com",2);
+select * from students;
+
+
+/*course table insertion*/
+insert into courses(course_name,user_id) values("JAVA",2);
+insert into courses(course_name,user_id) values("PYTHON",3);
+insert into courses(course_name,user_id) values("AWS",1);
+insert into courses(course_name,user_id) values("MONGO",4);
+insert into courses(course_name,user_id) values("JAVA",5);
+insert into courses(course_name,user_id) values("ORACLE",2);
+insert into courses(course_name,user_id) values("MYSQL",3);
+SELECT * FROM courses;
+
+/*codekata table insertion*/
+insert into codekata(total_pbm,pbm_solved,user_id) values(100,50,1);
+insert into codekata(total_pbm,pbm_solved,user_id) values(100,58,2);
+insert into codekata(total_pbm,pbm_solved,user_id) values(100,98,3);
+insert into codekata(total_pbm,pbm_solved,user_id) values(100,87,4);
+insert into codekata(total_pbm,pbm_solved,user_id) values(100,38,5);
+select * from codekata;
+update codekata set course_id=5 where user_id=1;
+update codekata set course_id=2 where user_id=5;
+update codekata set course_id=5 where user_id=3;
+update codekata set course_id=4 where user_id=2;
+update codekata set course_id=3 where user_id=4;
+
+use sample_db;
+/*attendance table*/
+insert into attendance(user_id,mentor_id,course_id,attended) values(1,1,1,true);
+insert into attendance(user_id,mentor_id,course_id,attended) values(1,1,2,true);
+insert into attendance(user_id,mentor_id,course_id,attended) values(1,2,3,false);
+insert into attendance(user_id,mentor_id,course_id,attended) values(2,1,1,true);
+insert into attendance(user_id,mentor_id,course_id,attended) values(2,2,5false);
+
+
+/*company_drives*/
+INSERT INTO company_drives(user_id,company_name) VALUES(1,"SAP labs");
+INSERT INTO company_drives(user_id,company_name) VALUES(1,"GIGSA labs");
+INSERT INTO company_drives(user_id,company_name) VALUES(1,"Amazon");
+INSERT INTO company_drives(user_id,company_name) VALUES(2,"SAP labs");
+INSERT INTO company_drives(user_id,company_name) VALUES(3,"Google");
+INSERT INTO company_drives(user_id,company_name) VALUES(4,"SAP labs");
+INSERT INTO company_drives(user_id,company_name) VALUES(5,"SAP labs");
+INSERT INTO company_drives(user_id,company_name) VALUES(5,"Amazon");
+
+/*students_activated_course*/
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(1,1);
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(1,2);
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(2,2);
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(2,3);
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(3,2);
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(3,3);
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(4,4);
+INSERT INTO students_activated_courses(user_id,course_id) VALUES(5,5);
+
+/*task*/
+
+INSERT INTO tasks(course_id,task) VALUES (1,"javascript task");
+INSERT INTO tasks(course_id,task) VALUES (2,"Html task");
+INSERT INTO tasks(course_id,task) VALUES (3,"Css task");
+INSERT INTO tasks(course_id,task) VALUES (4,"ReactJs task");
+INSERT INTO tasks(course_id,task) VALUES (5,"NodeJs task");
+
+/*topics table*/
+
+INSERT INTO topics(course_id,topic) VALUES(1,"loops and array");
+INSERT INTO topics(course_id,topic) VALUES(1,"objects and classes");
+INSERT INTO topics(course_id,topic) VALUES(2,"Html basics");
+INSERT INTO topics(course_id,topic) VALUES(3,"CSS basics");
+INSERT INTO topics(course_id,topic) VALUES(4,"React intro");
+INSERT INTO topics(course_id,topic) VALUES(4,"React basics");
+INSERT INTO topics(course_id,topic) VALUES(5,"NODE js intro");
+INSERT INTO topics(course_id,topic) VALUES(5,"NODE js basics");
+/*.....................................................................................................................................................*/
+
+
+/*3. get number problems solved in codekata by combining the users*/
+insert into students(student_name,contact_num,email,mentor_id)
+insert into codekata(total_pbm,pbm_solved,user_id) 
+SELECT students.user_id, students.student_name,students.email, codekata.pbm_solved
+FROM students
+INNER JOIN codekata ON students.user_id = codekata.user_id;
+
+/*.....................................................................................................................................................*/
+
+/*4. display the no of company drives attended by a user*/
+
+SELECT user_id ,count(user_id) AS Drives_Attended
+FROM company_drives
+GROUP BY user_id;
+
+/*.........................................................................................................................................................*/
+
+/*5. combine and display students_activated_courses and courses for a specific user grouping them based on the course*/
+
+INSERT INTO students_activated_courses(user_id,course_id)
+insert into courses(course_name,user_id)
+
+SELECT students_activated_courses.user_id,students_activated_courses.course_id,
+COUNT(students_activated_courses.course_id) ,courses.course_name
+FROM students_activated_courses
+INNER JOIN courses ON students_activated_courses.course_id=courses.course_id
+WHERE students_activated_courses.user_id=1
+GROUP BY courses.course_id;
+
+/*......................................................................................................................................................*/
+
+/*6. list all the mentors*/
+
+SELECT * from mentors;
+
+/*.........................................................................................................................................................*/
+
+/*7. list the number of students that are assigned for a mentor*/
+
+SELECT mentor.mentor_id,mentor.mentor_name,COUNT(students.mentor_id) AS NUMBER_OF_STUDENTS
+FROM mentor,students
+WHERE mentor.mentor_id=students.mentor_id 
+GROUP BY mentor.mentorid ;
